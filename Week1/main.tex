@@ -1,0 +1,174 @@
+\documentclass[a4paper,12pt]{article} % only 10 (default), 11 and 12 pt are available
+
+% NECESSARY PACKAGES
+\usepackage[utf8]{inputenc} % to be able to use non-English characters
+\usepackage{amsmath}  % improve math presentation
+\usepackage{physics}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption} % captioning package of wonders
+\usepackage{url} % to incorporate clickable links
+\usepackage{cite} % takes care of citations
+\usepackage[final]{hyperref} % adds hyper links inside the generated PDF file
+
+% NECESSARY FOR INCREASED CUSTOMIZATION PACKAGES
+\usepackage{newfloat} % for defining new float in environments (e.g: figure and tables are floats)
+\usepackage{graphicx} % takes care of graphic including machinery
+\usepackage{tabularx} % extra features for tabular environment
+\usepackage{array} % provides 'programmable' tables (cells can be tweaked much more)
+\usepackage[export]{adjustbox} % to include boxed content other than figures (e.g: boxed equations)
+\usepackage{wrapfig} % to make figures wrap around text
+\usepackage{subcaption} % to make sub-figures inside of figures
+\usepackage[spanish]{babel}
+% TWEAKS FOR PACKAGES
+\usepackage[margin=2cm,a4paper]{geometry} % tweaks margins
+\captionsetup{justification=centering} % caption justification
+\captionsetup{font=small} % caption text size
+\captionsetup{labelfont=bf} % caption label font emphasis (e.g: 'Figure X:')
+\numberwithin{equation}{section} % equations are named according to their section (e.g: 2.1)
+\numberwithin{figure}{section} % figures are named according to their section (e.g: 3.4)
+\hypersetup{
+    colorlinks=true,      % false: boxed links; true: colored links
+    linkcolor=black,      % color of internal links
+    citecolor=blue,       % color of links to bibliography
+    filecolor=magenta,    % color of file links
+    urlcolor=red          % color of website links
+}
+
+\usepackage{lipsum} % DELETE THIS AND BELOW \lipsum[]'s AND YOU'RE GOOD TO GO
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% HERE GOES THE COVER PAGE SETUP
+%\newcommand{\hwcourse}{\text{Astrofísica Extragaláctica y Cosmología}} % Title of your document
+\newcommand{\hwnumber}{\text{Problemas Contemporáneos de } \\ \text{Astrofísica Multifrecuencia}} % Name of your study number
+\newcommand{\hwname}{\text{GRBs (primera parte)}} % Name of your study name
+\newcommand{\hwdetails}{ \text{Informe de resultados obtenidos} \\ 
+                            \text{Tarea 4} \\ % Details about your study
+                            \\\text{ }\\
+                            \text{\textit{Instituto de Ciencias Nucleares}} }
+%\newcommand{\hwdate}{\text{In case you want to add a date other than submission date}}
+\newcommand{\hwauthor}{Keneth Garcia} % Your name or your group's names
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % line widths in the cover page
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{document}
+
+% COVER PAGE IS COMPILED HERE
+\begin{titlepage}
+\begin{center} % Center remainder of the page
+% LOGO SECTION
+\includegraphics[width = 8cm]{LOGOUNAMPOSGRADO.jpg}
+%\\[3cm]
+\vspace{11cm}
+% HEADING SECTIONS
+\textsc{\LARGE Universidad Nacional Autónoma de México}\\[.5cm]
+\textsc{\Large Programa de Posgrado en Astrofísica}\\[1.5cm]
+
+% TITLE SECTION
+\HRule \\[0.4cm]
+%{ \huge \bfseries \hwcourse}\\ \vspace{.5cm} 
+{ \huge \bfseries \hwnumber}\\ \vspace{.5cm} 
+{ \large \bfseries \hwname}\\ \vspace{.5cm} 
+{ \hwdetails}\\ \vspace{.5cm}
+%{ \bfseries \hwdate}\\ \vspace{.5cm} 
+\HRule \\[1.5cm]
+\end{center} 
+
+% AUTHOR SECTION
+\begin{flushleft} % left oriented author section
+    \large 
+    \textit{Escrito por:}\\
+    \hwauthor% Your name
+\end{flushleft}
+\vspace{5cm}
+\makeatletter
+Fecha: \today % \@date 
+\vfill % Fill the rest of the page with white space
+\makeatother
+\end{titlepage}
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\newpage
+
+%\tableofcontents
+
+%\newpage
+
+%\begin{abstract}
+    %\lipsum[1]
+%\end{abstract}
+
+%\newpage
+\section{Por qué es imposible la detección de una supernova asociada a un GRB si este sucede a un redshift de $z=2$ desde la Tierra?}
+Las supernovas tipo $Ic$ tienden a ser $1$ a $1.5$ magnitudes más débiles que las supernovas tipo $Ia$\cite{TypeIc}. A su vez, las supernovas tipo $Ia$ tienen una magnitud máxima promedio de $-19.3$ \cite{book:75350}. Entonces podemos asumir que, como máximo en promedio las supernovas tipo $Ic$ tienen una mangitud de $-18.3$. Con esto, usando la ecuación:
+\begin{equation}
+    m-M = 5log\left(\frac{r}{1pc}\right)-5
+\end{equation}
+y, en Mpc:
+\begin{equation}
+    m-M = 5log\left(\frac{10^6 r}{1Mpc}\right)-5
+\end{equation}
+A $z=2$, un GRB tendrá una distancia luminosa de $15818,4\,Mpc$, asumiendo un universo plano y las cantidades por defecto dadas en \cite{2006PASP..118.1711W}. Entonces:
+\begin{equation}
+    m-M = 5log\left(\frac{15818.6\times 10^6}{1Mpc}\right)-5 \approx 27.69
+\end{equation}
+Entonces, cómo se demuestra en el cálculo, la magnitud aparente está por debajo del límite de magnitud de telescopios como RATIR y el GTC (note que estimamos esto en el mejor de los casos, donde la magnitud de la supernova es máxima).
+
+\section{¿Con qué se relaciona el hecho de que los GRBs largos se encuentren a $z=2$ en promedio?}
+Los GRBs se encuentran con mucha mayor abundancia alrededor de z=2 debido a que en esa época es cuando se disparó la etapa de formación estelar, esto contrajo en esencia una mayor cantidad de GRBs emitidos y por ende es más probable encontrar GRBs allí.
+
+\section{De la página de GCNs, escriba el error en las posiciones con las que fue localizado el GRB 130427A de LAT y BAT. ¿A qué se debe la diferencia?}
+A las 7:47:57 UT BAT detectó el GRB130427A en la posición RA, Dec 173.139, +27.692, o de otro modo: RA(J2000) = 11h 32m 33s, Dec(J2000) = +27d 41' 29" con una incertidumbre de 3 arcmin. Por otro lado, a las 07:47:06 UT el instrumento LAT en Fermi detectó la emisión de este GRB, en el que reportaron explícitamente que: "The LAT on-ground location is consistent with the optical position reported in Elenin et al. (GCN 14450)".  En el GCN 14450 reportan una posición de RA(J2000) = 11h 32m 32.84s y Dec(J2000) = +27d 41' 56.2" con una incertidumbre de 1 arcmin.
+Dentro de los rangos de incertidumbre BAT y LAT concuerdan con la posición del GRB, solamente dado que se hace la búsqueda en el óptico, el telescopio ISON-NM tiene mejor precisión a la hora de encontrar la fuente. Adicional a esto, en BAT se dan resultados preliminares inicialmente, con un algoritmo completamente automático, sumando a la ya baja precisión de observación de Swift en si mismo. Por estas razones principalmente encontramos mejores precisiones de observación en telescopios como Swift, UVOT, etc.
+
+The data were reduced and combined in IRAF via the usual
+GMOS pipeline. No standard star was observed on the same
+night, so we plot in Figure 3 the normalized spectrum. We
+clearly identify lines of Ca ii, Mg ii, and Mg i, providing the first
+measurement of the redshift of GRB 130427A of z = 0.340
+(Levan et al. 2013). Despite the exceptionally high S/N (the
+afterglow was at R = 14.9–15.3 mag during the observations),
+the spectrum is essentially featureless outside these transitions,
+with the exception of a weak detection of Ti ii λ3384
+
+\section{El espectro del GRB 130427A permitió asociar un redshift $z=0.340$. ¿Qué líneas se utilizaron para dicha medición? ¿Por qué esas?}
+Tal como mencionan en \cite{2014ApJ...781...37P} (sección 2.4, segundo párrafo). Se usaron las observaciones espectroscópicas del telescopio Gemini North, en este espectro (que va de los $3080\AA$ a $5955\AA$se distinguen perfectamente las líneas de CaII, MgII y MgI (con un altísimo S/N ratio). Estas líneas fueron las que permitieron derivar el valor de $z=0.34$, hay dos razones principales por las que se usaron esas 3 líneas para determinar el redshift: En primera instancia, el gran S/N ratio que tienen en las observaciones de las líneas, y por otro lado, que en las demás líneas distinguibles en el espectro no se encuentra tal nivel de calidad (como TiII) o directamente no aparecen.
+
+\section{En la sección 2.5 de \cite{2014ApJ...781...37P}, se menciona que se usan dos aperturas para obtener la fotometría del UKIRT: $1.5''$ y $3.0$''. ¿Qué se gana al aumentar la apertura? ¿Qué desventaja tiene?}
+El aumentar la apertura de un telescopio en observación permite que podamos captar más luz y por ende creeríamos que podríamos tener más información del objeto en estudio, el principal problema es que tiene varios \textit{tradeoff}, en particular que, desde cierto límite que depende del objeto, empezamos a tener la contribución del fondo de estrellas, galaxias y objetos astronómicos en la imagen. En los GRBs con una host galaxy bien definida, tenemos la contribución de la propia galaxia en todas sus componentes y de las estrellas de nuestra galaxia que están en el campo de visión, esto genera que nuestras mediciones del objeto de interés pierdan precisión al tener más ruido. 
+
+Adicionalmente tenemos otra limitación física que es el tamaño del pixel de nuestro CCD o receptor de luz, cuando se usan aperturas demasiado grandes nuestro objeto de interés puede resultar ocupando apenas unas decenas de píxeles o menos, lo que afecta la resolución del mismo. Por otro lado, el uso de aperturas demasiado pequeñas hace que no podamos medir la totalidad de la emisión del objeto de interés, perdiendo información valiosa del mismo.
+
+Por ello se recurre a usar un punto medio de apertura que no sea lo demasiado grande ni pequeña, esto requiere muchas veces un \textit{fine-tunning} extenso y engorroso, cuestión que en eventos exóticos puede costar perder segundos valiosos de observación. Entonces, una alternativa que se hace en \cite{2014ApJ...781...37P} consiste en tomar una apertura mayor para extraer la emisión de fondo de la host galaxy y corregir las imágenes con menor apertura (en ese caso de $1.5''$).
+%\section{Introduction}
+% How to reference figures and cite sources
+%And in Figure \ref{fig:anderson} you see a sketch taken from \cite{anderson}.
+
+% How to make figures (tables are the same)
+% [H] -> put figure right here (other options: t - top, b - bottom, p - whole page)
+% more info: https://robjhyndman.com/hyndsight/latex-floats/
+% [width=some_value], LaTeX re-scales everything according to this value 
+% \textwidth, width of the text at that line, you can use \linewidth as well but \textwidth changes with increasing columns
+% \caption{} puts a caption into the figure, you don't need to specify 'Figure 1.1:'
+% \label{} is internal, to use the \ref{} command, see the same names in them and see that it is clickable in the PDF
+%\begin{figure}[H]
+    %\centering
+    %\includegraphics[width=0.65\textwidth]{figures%/andersonshock.png}
+    %\caption{Flow in a duct}
+    %\label{fig:anderson}
+%\end{figure}
+%\newpage
+%\newpage
+%\section{Conclusions}
+%\hspace{0.5cm}\lipsum[2]
+%\newpage
+%\section{Appendix}
+\clearpage
+\newpage
+\bibliographystyle{IEEEtran}
+\bibliography{sample}
+\end{document}
