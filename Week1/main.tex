@@ -103,70 +103,102 @@ Fecha: \today % \@date
 %\end{abstract}
 
 %\newpage
-\section{Por qué es imposible la detección de una supernova asociada a un GRB si este sucede a un redshift de $z=2$ desde la Tierra?}
-Las supernovas tipo $Ic$ tienden a ser $1$ a $1.5$ magnitudes más débiles que las supernovas tipo $Ia$\cite{TypeIc}. A su vez, las supernovas tipo $Ia$ tienen una magnitud máxima promedio de $-19.3$ \cite{book:75350}. Entonces podemos asumir que, como máximo en promedio las supernovas tipo $Ic$ tienen una mangitud de $-18.3$. Con esto, usando la ecuación:
-\begin{equation}
-    m-M = 5log\left(\frac{r}{1pc}\right)-5
-\end{equation}
-y, en Mpc:
-\begin{equation}
-    m-M = 5log\left(\frac{10^6 r}{1Mpc}\right)-5
-\end{equation}
-A $z=2$, un GRB tendrá una distancia luminosa de $15818,4\,Mpc$, asumiendo un universo plano y las cantidades por defecto dadas en \cite{2006PASP..118.1711W}. Entonces:
-\begin{equation}
-    m-M = 5log\left(\frac{15818.6\times 10^6}{1Mpc}\right)-5 \approx 27.69
-\end{equation}
-Entonces, cómo se demuestra en el cálculo, la magnitud aparente está por debajo del límite de magnitud de telescopios como RATIR y el GTC (note que estimamos esto en el mejor de los casos, donde la magnitud de la supernova es máxima).
+\section{Introducción}
 
-\section{¿Con qué se relaciona el hecho de que los GRBs largos se encuentren a $z=2$ en promedio?}
-Los GRBs se encuentran con mucha mayor abundancia alrededor de z=2 debido a que en esa época es cuando se disparó la etapa de formación estelar, esto contrajo en esencia una mayor cantidad de GRBs emitidos y por ende es más probable encontrar GRBs allí.
+Chile se reconoce a nivel mundial como uno de los países con mayor actividad sísmica, debido principalmente al proceso de subducción de la placa de Nazca bajo la placa Sudamericana a lo largo de un margen convergente altamente activo. En este contexto, el estudio sistemático de la sismicidad mediante catálogos instrumentales constituye una herramienta fundamental para comprender la distribución espacial y temporal de los eventos, así como para evaluar el peligro sísmico asociado a las distintas regiones del territorio chileno.
 
-\section{De la página de GCNs, escriba el error en las posiciones con las que fue localizado el GRB 130427A de LAT y BAT. ¿A qué se debe la diferencia?}
-A las 7:47:57 UT BAT detectó el GRB130427A en la posición RA, Dec 173.139, +27.692, o de otro modo: RA(J2000) = 11h 32m 33s, Dec(J2000) = +27d 41' 29" con una incertidumbre de 3 arcmin. Por otro lado, a las 07:47:06 UT el instrumento LAT en Fermi detectó la emisión de este GRB, en el que reportaron explícitamente que: "The LAT on-ground location is consistent with the optical position reported in Elenin et al. (GCN 14450)".  En el GCN 14450 reportan una posición de RA(J2000) = 11h 32m 32.84s y Dec(J2000) = +27d 41' 56.2" con una incertidumbre de 1 arcmin.
-Dentro de los rangos de incertidumbre BAT y LAT concuerdan con la posición del GRB, solamente dado que se hace la búsqueda en el óptico, el telescopio ISON-NM tiene mejor precisión a la hora de encontrar la fuente. Adicional a esto, en BAT se dan resultados preliminares inicialmente, con un algoritmo completamente automático, sumando a la ya baja precisión de observación de Swift en si mismo. Por estas razones principalmente encontramos mejores precisiones de observación en telescopios como Swift, UVOT, etc.
+La actividad propuesta en el Diploma en Sismología: Uso de Datos Sismológicos se centra en el análisis cuantitativo de la sismicidad reciente en Chile y en zonas específicas seleccionadas por cada estudiante, a partir de catálogos sísmicos obtenidos de instituciones nacionales e internacionales como el Servicio Sismológico Nacional de Chile (CSN), el Servicio Geológico de los Estados Unidos (USGS), IRIS y el Centro Sismológico Euro-Mediterráneo (EMSC), entre otros. Estos catálogos deben cubrir al menos un período de diez años, incluir un número representativo de eventos (del orden de cientos de sismos) y considerar magnitudes a partir de un umbral mínimo que permita caracterizar adecuadamente el régimen sísmico de la región de estudio.
 
-The data were reduced and combined in IRAF via the usual
-GMOS pipeline. No standard star was observed on the same
-night, so we plot in Figure 3 the normalized spectrum. We
-clearly identify lines of Ca ii, Mg ii, and Mg i, providing the first
-measurement of the redshift of GRB 130427A of z = 0.340
-(Levan et al. 2013). Despite the exceptionally high S/N (the
-afterglow was at R = 14.9–15.3 mag during the observations),
-the spectrum is essentially featureless outside these transitions,
-with the exception of a weak detection of Ti ii λ3384
+Sobre la base de estos datos, la tarea contempla tres ejes principales de trabajo. En primer lugar, se analiza la sismicidad reportada en noticias recientes del CSN, profundizando en la caracterización de uno de los grandes terremotos ocurridos en Chile durante los últimos años mediante información detallada de magnitud, localización, mecanismo focal e intensidades. En segundo lugar, se desarrolla un estudio regional de la sismicidad, que incluye la elaboración de perfiles en profundidad, mapas en planta y gráficos de latitud versus tiempo, con el fin de clasificar los distintos tipos de sismos (corticales, interplaca, intraplaca oceánica, entre otros) y discutir los procesos tectónicos que los controlan. Finalmente, se aplican y ajustan leyes empíricas clásicas en sismología, como la ley de Gutenberg--Richter y la ley de Omori, utilizando el catálogo construido para la región seleccionada, con el propósito de evaluar parámetros que describen la relación frecuencia--magnitud y la evolución temporal de las réplicas, y su implicancia en la caracterización del peligro sísmico local.
 
-\section{El espectro del GRB 130427A permitió asociar un redshift $z=0.340$. ¿Qué líneas se utilizaron para dicha medición? ¿Por qué esas?}
-Tal como mencionan en \cite{2014ApJ...781...37P} (sección 2.4, segundo párrafo). Se usaron las observaciones espectroscópicas del telescopio Gemini North, en este espectro (que va de los $3080\AA$ a $5955\AA$se distinguen perfectamente las líneas de CaII, MgII y MgI (con un altísimo S/N ratio). Estas líneas fueron las que permitieron derivar el valor de $z=0.34$, hay dos razones principales por las que se usaron esas 3 líneas para determinar el redshift: En primera instancia, el gran S/N ratio que tienen en las observaciones de las líneas, y por otro lado, que en las demás líneas distinguibles en el espectro no se encuentra tal nivel de calidad (como TiII) o directamente no aparecen.
+En particular, este documento presenta los análisis de la sismicidad reciente en Chile con énfasis en el terremoto de Illapel del 16 de septiembre de 2015 (Mw 8.3), ocurrido aproximadamente 48 km al oeste de Illapel a una profundidad cercana a 22,4 km, para el cual el USGS dispone de información detallada sobre magnitud, localización, mecanismo focal, intensidades y efectos tsunamigénicos, así como en el estudio regional basado en catálogos instrumentales y en la aplicación de las leyes empíricas de Gutenberg--Richter y Omori a los sismos considerados.
+\newpage
 
-\section{En la sección 2.5 de \cite{2014ApJ...781...37P}, se menciona que se usan dos aperturas para obtener la fotometría del UKIRT: $1.5''$ y $3.0$''. ¿Qué se gana al aumentar la apertura? ¿Qué desventaja tiene?}
-El aumentar la apertura de un telescopio en observación permite que podamos captar más luz y por ende creeríamos que podríamos tener más información del objeto en estudio, el principal problema es que tiene varios \textit{tradeoff}, en particular que, desde cierto límite que depende del objeto, empezamos a tener la contribución del fondo de estrellas, galaxias y objetos astronómicos en la imagen. En los GRBs con una host galaxy bien definida, tenemos la contribución de la propia galaxia en todas sus componentes y de las estrellas de nuestra galaxia que están en el campo de visión, esto genera que nuestras mediciones del objeto de interés pierdan precisión al tener más ruido. 
+\section{Metodología}
+\newpage
 
-Adicionalmente tenemos otra limitación física que es el tamaño del pixel de nuestro CCD o receptor de luz, cuando se usan aperturas demasiado grandes nuestro objeto de interés puede resultar ocupando apenas unas decenas de píxeles o menos, lo que afecta la resolución del mismo. Por otro lado, el uso de aperturas demasiado pequeñas hace que no podamos medir la totalidad de la emisión del objeto de interés, perdiendo información valiosa del mismo.
+\section{Resultados y discusión}
+\subsection{Caracterización del terremoto de Illapel 2015}
 
-Por ello se recurre a usar un punto medio de apertura que no sea lo demasiado grande ni pequeña, esto requiere muchas veces un \textit{fine-tunning} extenso y engorroso, cuestión que en eventos exóticos puede costar perder segundos valiosos de observación. Entonces, una alternativa que se hace en \cite{2014ApJ...781...37P} consiste en tomar una apertura mayor para extraer la emisión de fondo de la host galaxy y corregir las imágenes con menor apertura (en ese caso de $1.5''$).
-%\section{Introduction}
-% How to reference figures and cite sources
-%And in Figure \ref{fig:anderson} you see a sketch taken from \cite{anderson}.
+En esta sección se describe el terremoto de Illapel del 16 de septiembre de 2015 utilizando la información disponible en la base de datos del USGS y fuentes complementarias, recopilando sus parámetros principales, el tipo de sismo, el mecanismo focal, el mapa de intensidades y otros antecedentes relevantes \cite{USGS_Illapel2015,USGS_ShakeMap_Illapel2015,Wikipedia_Illapel2015,Aranguiz_Geotech_Illapel2015,IRIS_SpecialEvent_Illapel2015,ITIC_Tsunami_Illapel2015,Ruiz_SeismicSequence_Illapel2016,Fernandez_Damage_Illapel2018,Klein_GPS_InSAR_Illapel2017}.
 
-% How to make figures (tables are the same)
-% [H] -> put figure right here (other options: t - top, b - bottom, p - whole page)
-% more info: https://robjhyndman.com/hyndsight/latex-floats/
-% [width=some_value], LaTeX re-scales everything according to this value 
-% \textwidth, width of the text at that line, you can use \linewidth as well but \textwidth changes with increasing columns
-% \caption{} puts a caption into the figure, you don't need to specify 'Figure 1.1:'
-% \label{} is internal, to use the \ref{} command, see the same names in them and see that it is clickable in the PDF
-%\begin{figure}[H]
-    %\centering
-    %\includegraphics[width=0.65\textwidth]{figures%/andersonshock.png}
-    %\caption{Flow in a duct}
-    %\label{fig:anderson}
-%\end{figure}
-%\newpage
-%\newpage
-%\section{Conclusions}
-%\hspace{0.5cm}\lipsum[2]
-%\newpage
-%\section{Appendix}
+\subsubsection{Magnitud y ubicación geográfica}
+
+De acuerdo al USGS, el evento principal corresponde a un terremoto de magnitud momento Mw 8.3, registrado el 16 de septiembre de 2015 a las 22:54:32 UTC \cite{USGS_Illapel2015}. El hipocentro se localizó aproximadamente en 31.573°S y 71.674°W, a una profundidad de 22.4 km, con un epicentro situado del orden de 48 km al oeste de la ciudad de Illapel, en la región de Coquimbo, Chile \cite{USGS_Illapel2015,IRIS_SpecialEvent_Illapel2015}. Estas coordenadas ubican el sismo sobre el margen de subducción de la placa de Nazca bajo la placa Sudamericana, en un segmento previamente identificado como altamente acoplado y potencialmente sísmico \cite{Aranguiz_Geotech_Illapel2015,Ruiz_SeismicSequence_Illapel2016}.
+
+\subsubsection{Tipo de sismo}
+
+El terremoto de Illapel 2015 se clasifica como un sismo de subducción tipo \emph{megathrust}, generado en el plano de contacto entre las placas de Nazca y Sudamérica \cite{USGS_Illapel2015,IRIS_SpecialEvent_Illapel2015}. La ruptura afectó un segmento de aproximadamente 200 km por 100 km del interfaz de subducción, con deslizamientos máximos estimados entre 5 y 6 m a lo largo de la zona de mayor liberación de esfuerzo \cite{Aranguiz_Geotech_Illapel2015,Ruiz_SeismicSequence_Illapel2016}. Este tipo de evento interplaca es responsable de los mayores terremotos registrados en Chile y está asociado a una importante generación de tsunamis \cite{Aranguiz_Geotech_Illapel2015,ITIC_Tsunami_Illapel2015}.
+
+\subsubsection{Mapa de intensidades}
+
+Para caracterizar la distribución del daño, se emplea el mapa de intensidades macrosísmicas (ShakeMap) publicado por el USGS para este evento en la Figura \ref{fig:intensity_illapel}\cite{USGS_ShakeMap_Illapel2015}. El ShakeMap de intensidad indica que el sismo alcanzó intensidades máximas cercanas a VIII (Severo) en sectores costeros de la región de Coquimbo, mientras que en localidades más alejadas la intensidad disminuye progresivamente hacia valores de VI--VII (Fuerte y Muy Fuerte) \cite{USGS_ShakeMap_Illapel2015,Wikipedia_Illapel2015,Fernandez_Damage_Illapel2018}. El mismo producto de la USGS asocia rangos de intensidad con valores de aceleración pico (PGA) superiores a 0.8 g en estaciones cercanas al área de ruptura, como Monte Patria \cite{USGS_ShakeMap_Illapel2015,Fernandez_Damage_Illapel2018}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.65\textwidth]{Figures/intensity.pdf}
+  \caption{Mapa de intensidades macrosísmicas (MMI) para el terremoto de Illapel 2015, basado en el ShakeMap del USGS \cite{USGS_ShakeMap_Illapel2015,Wikipedia_Illapel2015}.}
+  \label{fig:intensity_illapel}
+\end{figure}
+
+\subsubsection{Mecanismo focal}
+
+El mecanismo focal determinado por el USGS para el evento principal indica un movimiento de falla inversa sobre un plano de rumbo aproximadamente norte-sur (Figura \ref{fig:mecanismo_illapel}), consistente con movimientos de subducción entre las placas de Nazca y Sudamérica \cite{USGS_Illapel2015,IRIS_SpecialEvent_Illapel2015,Ruiz_SeismicSequence_Illapel2016}. Este mecanismo focal es típico de terremotos \emph{megathrust} en márgenes convergentes y explica la generación de importantes levantamientos cosísmicos y deformaciones asociadas en la zona costera \cite{Aranguiz_Geotech_Illapel2015,Ruiz_SeismicSequence_Illapel2016}.
+
+\begin{figure}[h]
+  \centering
+  % Subfiguras horizontales: requiere \usepackage{subcaption}
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/mecanismo_focal.png}
+    \caption{Mecanismo focal del terremoto de Illapel 2015 (Mw 8.3), según soluciones de momento tensor de USGS \cite{USGS_Illapel2015}.}
+    \label{fig:mecanismo_illapel}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/mecanismo_focal_2.png}
+    \caption{Mecanismo focal del terremoto del Paso Drake 2025 (Mw 7.4), de acuerdo con la solución de falla inversa somera reportada por USGS \cite{USGS_Drake2025}.}
+    \label{fig:mecanismo_drake}
+  \end{subfigure}
+  \caption{Mecanismos focales de los terremotos de Illapel 2015 (Mw 8.3) y Paso Drake 2025 (Mw 7.4), que ilustran el fallamiento inverso asociado al la región de subducción en el margen chileno y a la convergencia de placas en el Paso Drake \cite{USGS_Illapel2015,USGS_Drake2025}.}
+  \label{fig:mecanismos_focales}
+\end{figure}
+
+\subsubsection{Otros datos relevantes}
+
+El terremoto de Illapel 2015 generó un tsunami que fue registrado a lo largo de la costa central de Chile y en distintos mareógrafos del Pacífico \cite{IRIS_SpecialEvent_Illapel2015,ITIC_Tsunami_Illapel2015,Aranguiz_Geotech_Illapel2015}. En la estación de mareas de Coquimbo se midieron alturas de ola del orden de 4.75 m, mientras que en sectores cercanos al epicentro se reportaron run-ups máximos de aproximadamente 11 m sobre el nivel del mar \cite{Aranguiz_Geotech_Illapel2015,ITIC_Tsunami_Illapel2015}. La secuencia sísmica incluyó miles de réplicas, con al menos 31 eventos de magnitud mayor o igual a 6.0, que delinean el área de ruptura principal y su entorno inmediato en el interfaz de subducción \cite{Wikipedia_Illapel2015,Ruiz_SeismicSequence_Illapel2016}. Evaluaciones posteriores del daño indican que, pese a la alta magnitud, las intensidades observadas y el nivel de daño estructural fueron relativamente menores que lo esperado para un \emph{megathrust} de esta energía, lo que ha sido atribuido, entre otros factores, a las propiedades de sitio y a las características del movimiento fuerte registrado \cite{Fernandez_Damage_Illapel2018}.
+
+
+\subsection{Características del terremoto del Paso Drake 2025 y razones de la alerta preventiva}
+
+El terremoto del Paso Drake del 2 de mayo de 2025 corresponde a un evento de magnitud momento Mw 7.4, localizado por el USGS a las 12:58:26 UTC, con hipocentro en 56.809°S y 68.102°W y una profundidad de 10 km en la zona marítima entre el extremo sur de Sudamérica y la Antártica \cite{USGS_Drake2025,Wikipedia_Drake2025}. Esta configuración geométrica y la baja profundidad del evento lo clasifican como un sismo de falla inversa, capaz de generar perturbaciones significativas en el nivel del mar y, por tanto, potenciales tsunamis en las costas cercanas \cite{USGS_Drake2025}.
+
+Desde el punto de vista tectónico, el evento ocurrió en una región de interacción donde convergen las placas Sudamericana, Antártica y Scotia, en las proximidades de un triple punto de placas \cite{USGS_Drake2025,Wikipedia_Drake2025}. La solución de mecanismo focal publicada por el USGS (Figura \ref{fig:mecanismo_drake}) indica un movimiento de compresión (falla inversa) sobre un plano de rumbo aproximado este--oeste, consistente con la convergencia relativa entre estas placas en el Paso Drake \cite{USGS_Drake2025,Wikipedia_Drake2025}. Esta combinación de alta magnitud, profundidad superficial y contexto tectónico convergente incrementó la preocupación por la posible generación de un tsunami que afectara tanto al territorio antártico chileno como a la región de Magallanes.
+
+Poco después del sismo, el Centro de Alerta de Tsunamis del Pacífico (PTWC) emitió un boletín en el que se evaluó la amenaza de tsunami para el Paso Drake y zonas adyacentes, estimando alturas de ola de entre 1 y 3 metros por sobre el nivel de marea para partes de la costa de Chile y de 0.3 a 1 metro para sectores de la Antártica \cite{PTWC_Drake2025}. Aunque las amplitudes pronosticadas no representaban un peligro extremo, la incertidumbre asociada al modelo de tsunami y la presencia de instalaciones científicas y militares en la zona motivaron una respuesta precautoria de las autoridades competentes \cite{PTWC_Drake2025,USAToday_Drake2025,CGTN_Drake2025}.
+
+En Chile, el Servicio Nacional de Prevención y Respuesta ante Desastres (SENAPRED) y el Servicio Hidrográfico y Oceanográfico de la Armada (SHOA) declararon un estado de alerta preventiva (estado de precaución) para el borde costero de la región de Magallanes y para el territorio antártico, ordenando la evacuación de zonas de playa y la movilización hacia áreas seguras \cite{DW_Drake2025,Reuters_Drake2025,USAToday_Drake2025}. Informes de noticieros locales indican que se evacuaron alrededor de 2\,000 personas en sectores costeros del extremo sur, mientras que en bases antárticas se mantuvo el monitoreo del nivel del mar y la aplicación de protocolos de emergencia \cite{DW_Drake2025,Reuters_Drake2025}.
+
+En síntesis, las características especiales que hicieron que el terremoto del Paso Drake de 2025 generara una alerta preventiva fueron su alta magnitud (Mw 7.4), la profundidad superficial (\(\sim 10\) km), su ubicación en un contexto de convergencia de placas cercano a un triple punto, la posibilidad modelada de alturas de tsunami de hasta 1--3 m en zonas costeras de Chile y la presencia de instalaciones sensibles en la región de Magallanes y en la Antártica chilena \cite{USGS_Drake2025,PTWC_Drake2025,Reuters_Drake2025,Wikipedia_Drake2025}.
+
+
+\subsection{¿Liberó el terremoto de Iquique 2014 toda la energía acumulada? Discusión}
+
+El terremoto de Iquique del 1 de abril de 2014 (Mw 8.1--8.2) ocurrió dentro de la región sísmica del norte de Chile, un segmento de subducción que no tenía un gran megaterremoto desde el evento de 1877 (Mw $\sim$ 8.8) \cite{USGS_Iquique2014,Hayes_Iquique2014}. Diversos estudios que combinan sismología, geodesia (GPS e InSAR) y modelos de tsunami muestran que la ruptura de 2014 afectó sólo una parte de la región, lo que implica que no se liberó toda la energía acumulada en el sistema durante siglos \cite{Hayes_Iquique2014,Duputel_Iquique2015,Watada_Iquique2014}.
+
+El análisis de la distribución de deslizamiento cosísmico reveló que la ruptura principal de Iquique fue relativamente reducida, con un área del orden de 100 km $\times$ 50 km y desplazamientos máximos cercanos a 7 m \cite{Duputel_Iquique2015,Watada_Iquique2014}. A su vez, estudios de modelo de falla finita y de ondas de tsunami indican que la zona de mayor desplazamiento se restringe a una porción central de la región de subducción, mientras que grandes segmentos al norte y al sur permanecen sin un deslizamiento significativo \cite{Watada_Iquique2014}. Esto es consistente con modelos de acoplamiento intersísmico basados en GPS, que muestran segmentos altamente trabados (\textit{“highly locked”}) circundantes a la región que se desplazó en 2014 y que podrían albergar futuros megaterremotos \cite{Metois_NorthChileGap2013,Hayes_Iquique2014}.
+
+Otro argumento que respalda la idea de que el terremoto de Iquique no liberó toda la energía acumulada proviene de la estimación del déficit de momento\footnote{La diferencia acumulada entre la energía o el desplazamiento que las placas tectónicas deberían liberar teóricamente en una falla} y de la segmentación de la falla \cite{Hayes_Iquique2014,Schurr_IquiqueGap2014}. Los resultados sugieren que el desplazamiento del 2014 afectó del orden de un 20--30\% de la extensión total de la falla, dejando secciones con acoplamiento fuerte que podrían producir eventos con magnitudes potenciales mayores que 8.5 en el futuro \cite{Hayes_Iquique2014}. Además, modelos que consideraron la geometría de la placa de Nazca y la presencia de zonas de acoplamiento reducido indican que ciertas regiones actúan como barreras naturales que limitaron la propagación de la ruptura de Iquique, favoreciendo una liberación parcial del esfuerzo acumulado en la zona \cite{Metois_NorthChileGap2013,Schurr_IquiqueGap2014}.  Se ha propuesto que dichas barreras naturales incluyen relieves en la placa de Nazca, como montes submarinos \cite{Geersen_Seamounts2016}.
+
+Sobre la pregunta de si es posible “saber” que no se liberó toda la energía, la respuesta es complicada. En la práctica, lo que se estima no es directamente la energía, sino el déficit de energía liberada respecto al esperado por modelos teóricos que se actualizan con el tiempo \cite{Metois_NorthChileGap2013,Hayes_Iquique2014}. Por lo tanto, las incertidumbres asociadas a dichos modelos y la contribución de las barreras naturales en la liberación de energía impiden afirmar con exactitud cuánta energía permanece almacenada y en qué momento podría liberarse \cite{Nucleation_Iquique2016,Eskp_IquiqueHazard2014}.  En resumen, la afirmación de que el terremoto de Iquique 2014 no liberó toda la energía acumulada se basa en evidencia cuantitativa sólida \cite{Hayes_Iquique2014,Duputel_Iquique2015}. No obstante, la imposibilidad actual de medir directamente el estado de los esfuerzos en las placas y de capturar todo el relieve del fondo marino hace que esta conclusión sea necesariamente probabilística y dependiente de los modelos \cite{Cesca_Iquique2016,Eskp_IquiqueHazard2014,USGS_Iquique2014}.
+
+
+\newpage
+
+\section{Conclusiones}
+\newpage
+
 \clearpage
 \newpage
 \bibliographystyle{IEEEtran}
