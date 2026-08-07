@@ -2223,7 +2223,7 @@ def leer_catalogo(ruta):
     """
     datos = pd.read_csv(
         ruta,
-        sep=r"\s+",
+        sep=',',
         engine="python",
     )
 
