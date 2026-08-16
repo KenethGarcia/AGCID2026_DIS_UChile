@@ -106,13 +106,172 @@ Fecha: \today % \@date
 
 \section{Introducción}
 
+La localización precisa de los sismos y la determinación de sus mecanismos focales constituyen herramientas fundamentales para el estudio de la sismicidad y la interpretación de los procesos tectónicos que la generan. A partir de los tiempos de arribo de las ondas sísmicas registradas en una red de estaciones, es posible estimar la ubicación del hipocentro, su profundidad y el tiempo de origen de un evento. De manera complementaria, el análisis de las polaridades de las primeras llegadas de ondas P permite restringir la geometría de la falla y el sentido del movimiento que produjo la ruptura, aportando información esencial para clasificar el tipo de sismo y relacionarlo con el contexto tectónico regional.
+
+En esta actividad se empleará el programa SEISAN para procesar registros sísmicos en formato \textit{miniSEED} asociados a eventos ocurridos en Chile durante los años 2021 y 2022. El procesamiento comprende la visualización de las formas de onda, la identificación y el picado de los arribos de las fases P y S, y el registro de la polaridad de la primera llegada de la onda P en la componente vertical. A partir de estas observaciones se realizará la localización de dos eventos seleccionados, procurando obtener soluciones con un error cuadrático medio (\textit{RMS}) inferior a $0{,}5$~s y una cobertura azimutal adecuada de las estaciones.
+
+La estimación de las localizaciones dependerá de la comparación entre los tiempos de viaje observados y aquellos calculados mediante un modelo de velocidades predefinido por el material suplementario. Por ello, las diferencias entre ambos conjuntos de tiempos constituyen una forma de analizar las incertidumbres en el picado de fases, las limitaciones de la cobertura instrumental o aquellas simplificaciones inherentes al modelo de velocidades utilizado para representar la estructura del margen de subducción chileno. La evaluación de dichos factores permitirá discutir la calidad y las limitaciones de cada solución hipocentral.
+
+Asimismo, los mecanismos focales serán calculados mediante los programas \texttt{FPFIT} y \texttt{FOCMEC}, utilizando las polaridades de las primeras llegadas de ondas P. Como veremos más adelante, la comparación entre ambos métodos permitirá evaluar el nivel de restricción proporcionado por las observaciones disponibles, identificar posibles ambigüedades en las soluciones y analizar las diferencias que puedan surgir debido a los criterios de búsqueda y ajuste empleados por cada programa.
+
+Finalmente, las localizaciones y los mecanismos focales obtenidos serán comparados con información reportada por agencias sismológicas y, cuando estén disponibles, con resultados publicados en literatura científica. Esta comparación permitirá evaluar la coherencia de los resultados alcanzados y discutir la clasificación tectónica de cada sismo a partir de su posición en planta, profundidad, mecanismo focal y relación con las principales estructuras activas del territorio chileno.
+
+El presente documento presenta los resultados obtenidos durante el desarrollo de la actividad. Inicialmente, se describen los procedimientos aplicados en SEISAN para el procesamiento de las formas de onda, el picado de fases, la localización hipocentral y el cálculo de mecanismos focales. A continuación, se presentan y discuten las localizaciones, los mecanismos focales, la cobertura de estaciones, la comparación con soluciones de agencias sismológicas o literatura científica y la interpretación tectónica de los eventos analizados. Finalmente, se sintetizan los principales hallazgos, las limitaciones identificadas y la coherencia general de las soluciones obtenidas.
+
 \newpage
 
 \section{Metodología}
 
+\subsection{Instalación y configuración de SEISAN}
+
+El procesamiento de los eventos se realizó mediante el programa \texttt{SEISAN} en un sistema operativo Windows. La instalación se efectuó a partir del instalador oficial para Windows, utilizando la configuración predeterminada y la estructura de directorios propuesta por el programa, con el directorio principal ubicado en \texttt{C:\textbackslash Seismo}. Esta instalación crea las carpetas necesarias para almacenar datos de formas de onda, archivos de eventos, configuraciones y programas ejecutables, entre las que se encuentran \texttt{WAV}, \texttt{REA}, \texttt{DAT}, \texttt{COM} y \texttt{PRO}.
+
+Para garantizar la ejecución de los comandos de SEISAN desde la consola de Windows, se verificó la configuración de las variables de entorno y de las rutas requeridas. En particular, se configuró la variable \texttt{SEISAN\_TOP} para que apuntara al directorio de instalación principal y se incluyeron las carpetas \texttt{COM} y \texttt{PRO} dentro de la variable \texttt{PATH} del sistema. Esta configuración permite que los programas de localización, visualización y cálculo de mecanismos focales reconozcan la estructura interna del software y puedan ejecutarse desde la ventana de comandos \cite{seisan_windows_manual}.
+
+Posteriormente, los archivos de formas de onda en formato \textit{miniSEED} fueron ubicados en el directorio \texttt{C:\textbackslash Seismo\textbackslash WAV}. Asimismo, se creó una base de datos de trabajo dentro de \texttt{C:\textbackslash Seismo\textbackslash REA}, organizada mediante un directorio de cinco letras mayúsculas y subdirectorios correspondientes al año y mes de ocurrencia de cada evento. Los archivos \textit{S-file} fueron ubicados en sus directorios temporales respectivos, mientras que el archivo \texttt{STATION0.HYP}, que contiene las coordenadas de las estaciones y el modelo de velocidades, se instaló en \texttt{C:\textbackslash Seismo\textbackslash DAT}, reemplazando la configuración predeterminada.
+
+\subsection{Selección de eventos}
+
+De los tres eventos suministrados para la actividad, se seleccionaron los registros denominados \texttt{event20210523T215859} y \texttt{event20221210T072548}. Esta selección permitió trabajar con dos eventos ocurridos en años distintos, registrados por estaciones de las redes C1 y CX, y comparar sus localizaciones y mecanismos focales dentro del contexto sismotectónico chileno.
+
+El primer evento corresponde a un sismo ocurrido el 23 de mayo de 2021 a las 21:58:59 UTC, mientras que el segundo corresponde a un evento ocurrido el 10 de diciembre de 2022 a las 07:25:48 UTC. La información de referencia de ambos eventos fue consultada en la base de datos pública del Centro Sismológico Nacional (CSN), utilizando la fecha y hora de origen como criterios de búsqueda~\cite{csn_event_database}. Para cada evento se recopiló, de forma resumida, la fecha y hora de ocurrencia, la localización geográfica, la profundidad, la magnitud reportada y la descripción espacial de referencia proporcionada por el CSN. Estos antecedentes se utilizarán posteriormente para comparar las localizaciones obtenidas mediante SEISAN con las soluciones institucionales disponibles.
+
+\subsection{Preparación y visualización de las trazas}
+
+Una vez organizada la base de datos, se inició la interfaz de eventos de SEISAN mediante el comando \texttt{eev}, especificando el año, el mes y el nombre de la base de datos creada. Desde la lista de eventos se utilizó el comando \texttt{po} para abrir las formas de onda asociadas a cada \textit{S-file}. La visualización permitió revisar los registros de las estaciones disponibles, sus componentes y la calidad general de la señal.
+
+Durante esta etapa se inspeccionaron las trazas para identificar las estaciones con relaciones señal--ruido adecuadas y ventanas temporales que permitieran reconocer de manera confiable los arribos de las fases sísmicas. Cuando fue necesario, se ajustó la escala temporal y de amplitud para mejorar la visualización de los primeros arribos, y se aplicaron filtros de frecuencia únicamente cuando estos facilitaron la identificación de fases sin alterar de forma significativa la señal observada.
+
+\subsection{Picado de fases y polaridades}
+
+Para cada estación con señal utilizable se identificaron y marcaron los tiempos de llegada de las ondas P y S. En SEISAN, las fases P fueron registradas como impulsivas o emergentes según la nitidez de su inicio; de manera análoga, las fases S se clasificaron de acuerdo con la claridad de su llegada. Se priorizó el uso de fases P y S en las estaciones con señales claras, aunque en algunos casos se registró únicamente una de las fases cuando la otra no podía identificarse con suficiente confianza.
+
+Las llegadas P fueron marcadas como impulsivas mediante la opción \texttt{IP} o como emergentes mediante \texttt{EP}. Además, en la componente vertical de cada estación se registró la polaridad de la primera llegada P: una polaridad positiva o compresional fue asignada cuando el primer movimiento se dirigió hacia arriba, mientras que una polaridad negativa o dilatacional fue asignada cuando el primer movimiento se dirigió hacia abajo. Las observaciones con baja relación señal--ruido, ambigüedad en el arribo inicial o polaridad poco definida fueron descartadas para evitar que afectaran la localización y el cálculo del mecanismo focal.
+
+Los tiempos de arribo P y S fueron utilizados posteriormente para obtener una solución hipocentral mediante el ajuste entre los tiempos observados y los tiempos teóricos calculados por SEISAN a partir del modelo de velocidades incluido en el archivo \texttt{STATION0.HYP}. Se buscó obtener soluciones con un error cuadrático medio, o \textit{RMS}, inferior a $0{,}5$~s, de acuerdo con el criterio definido para la actividad.
+
+\subsection{Cálculo de mecanismos focales}
+
+Los mecanismos focales fueron estimados a partir de las polaridades de las primeras llegadas de ondas P marcadas en las componentes verticales. Para este propósito se utilizaron los dos programas indicados en la actividad: \texttt{FPFIT} y \texttt{FOCMEC}. Ambos métodos emplean la distribución de polaridades compresionales y dilatacionales respecto de la localización del evento y las estaciones, con el fin de estimar las orientaciones de los planos nodales y el tipo de mecanismo de falla asociado.
+
+En primer lugar, se ejecutó \texttt{FPFIT}, obteniendo una solución de mecanismo focal ajustada a las polaridades ingresadas. Posteriormente, se utilizó \texttt{FOCMEC}, el cual explora un conjunto de soluciones posibles a partir de diferentes combinaciones de rumbo, manteo y deslizamiento. Durante la ejecución de \texttt{FOCMEC} se consideraron pesos relativos para reducir la influencia de observaciones próximas a los planos nodales y se realizaron pruebas con distintos valores de tolerancia para errores de polaridad e incrementos angulares de búsqueda.
+
+Cuando \texttt{FOCMEC} entregó más de una solución admisible, la selección de la solución preferida se realizó considerando el menor número de polaridades incompatibles, la distribución azimutal de las estaciones, la coherencia con el mecanismo entregado por \texttt{FPFIT} y la consistencia con la localización y el contexto tectónico del evento. Finalmente, las soluciones obtenidas mediante ambos programas serán comparadas entre sí y con los mecanismos focales, localizaciones y parámetros publicados por el CSN u otras fuentes sismológicas disponibles.
+
 \newpage
 
-\section{Resultados y discusión}
+\section{Resultados}
+
+\subsection{Evento del 23 de mayo de 2021}
+
+\subsubsection{Selección de fases y polaridades}
+
+\begin{figure}[]
+    \centering
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/pick_ES_C004_20210523}
+        \caption{Ejemplo de selección de una fase P emergente con polaridad dilatacional (\texttt{EPD}) en la estación \texttt{C004}, registrada en las componentes \texttt{HHZ}, \texttt{HHN} y \texttt{HHE}. La marca roja indica el instante seleccionado para el arribo de la fase P.}
+        \label{fig:pick-es-c004-20210523}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/pick_EP_C004_20210523}
+        \caption{Ejemplo de selección de una fase P emergente con polaridad dilatacional (\texttt{EP D}) y una fase S emergente (\texttt{ES}) en la estación \texttt{C004}. La marca roja indica el instante de llegada seleccionado para las fases.}
+        \label{fig:pick-ep-c004-20210523}
+    \end{subfigure}
+
+    \caption{Ejemplos de selección manual de arribos de fases para el evento del 23 de mayo de 2021, visualizados en SEISAN. Las trazas corresponden a las componentes vertical y horizontales de la estación \texttt{C004} de la red \texttt{C1}.}
+    \label{fig:picks-evento-20210523}
+\end{figure}
+
+El primer evento analizado corresponde al archivo \texttt{event20210523T215859}, cuya forma de onda fue revisada en SEISAN mediante la visualización de las tres componentes registradas por las estaciones disponibles. Para la localización del evento y el cálculo posterior del mecanismo focal, se identificaron los arribos de las fases P y S en los registros que presentaron una relación señal--ruido adecuada. Además, para las primeras llegadas P se registró su carácter impulsivo o emergente y, cuando fue posible identificarla con claridad, su polaridad en la componente vertical.
+
+La Figura~\ref{fig:picks-evento-20210523} presenta dos ejemplos del proceso de selección de fases realizado para este evento en la estación \texttt{C004} de la red \texttt{C1}. En ambas subfiguras se muestran simultáneamente las componentes vertical (\texttt{HHZ}) y horizontales (\texttt{HHN} y \texttt{HHE}), lo que permitió comparar la respuesta de la señal entre componentes y reconocer los cambios de amplitud asociados a las llegadas sísmicas. Las líneas verticales rojas corresponden a las marcas realizadas durante el procesamiento en SEISAN.
+
+En la Figura~\ref{fig:picks-evento-20210523}b se observa un ejemplo de una fase S emergente (\texttt{ES}) seleccionada en la componente \texttt{HHE}. El arribo se identificó a partir del incremento progresivo de amplitud de la señal, especialmente visible en las componentes horizontales. Por su parte, la Figura~\ref{fig:picks-evento-20210523}a presenta una fase P emergente con polaridad dilatacional (\texttt{EP D}) identificada en la componente vertical \texttt{HHZ}. Estas selecciones fueron incorporadas en el archivo del evento para su utilización posterior en la localización hipocentral y en el cálculo de las soluciones de mecanismo focal.
+
+\begin{figure}[htbp]
+    \centering
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/picks_observados_teoricos_B003_1_20210523}
+        \caption{Comparación entre arribos observados y tiempos teóricos para la estación \texttt{B003}. Las marcas rojas representan los picks manuales; las líneas azules corresponden a los tiempos teóricos de las fases P y S calculados por SEISAN. Se aprecia una fase S impulsiva (\texttt{IS}) seleccionada en la componente \texttt{HHE}.}
+        \label{fig:picks-teoricos-b003-1-20210523}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/picks_observados_teoricos_B003_2_20210523}
+        \caption{Comparación entre picks observados y teóricos en otra ventana temporal de la estación \texttt{B003}. Se muestra una fase P emergente con polaridad dilatacional (\texttt{EP D}) y una fase S impulsiva (\texttt{IS}), ambas marcadas en rojo; los indicadores azules corresponden a los arribos teóricos calculados para las fases P y S.}
+        \label{fig:picks-teoricos-b003-2-20210523}
+    \end{subfigure}
+
+    \caption{Comparación entre los tiempos de llegada observados y los tiempos teóricos calculados por SEISAN para el evento del 23 de mayo de 2021. Las marcas rojas corresponden a los picks manuales, mientras que las marcas azules corresponden a las llegadas teóricas calculadas mediante el modelo de velocidades configurado.}
+    \label{fig:picks-observados-teoricos-20210523}
+\end{figure}
+
+La Figura~\ref{fig:picks-observados-teoricos-20210523} presenta ejemplos de la comparación entre las fases seleccionadas manualmente en las trazas y los tiempos teóricos calculados por SEISAN luego de aplicar el modelo de velocidades configurado en el archivo \texttt{STATION0.HYP}. Las marcas rojas corresponden a los arribos observados e identificados durante el procesamiento manual, mientras que las líneas azules representan los tiempos teóricos de las fases P y S estimados por el programa para la solución de localización calculada.
+
+En ambas subfiguras se observa que los picks teóricos no coinciden exactamente con los arribos seleccionados sobre la señal. Este desfase es esperable, ya que los tiempos teóricos son calculados a partir de un modelo de velocidades simplificado, mientras que los tiempos observados corresponden a la propagación real de las ondas a través de una estructura cortical y de subducción heterogénea. Además, pequeñas diferencias pueden originarse en la localización preliminar del evento, en la geometría entre el hipocentro y cada estación, en variaciones locales de velocidad y en la incertidumbre inherente a la identificación manual de fases, particularmente cuando los arribos son emergentes o presentan una relación señal--ruido limitada.
+
+Por esta razón, los picks no deben desplazarse automáticamente hasta coincidir con las llegadas teóricas con el único propósito de disminuir el valor del \textit{RMS}. Los tiempos observados deben conservarse en el punto donde la señal muestra físicamente el inicio de la fase P o S, pues modificar las observaciones para forzar su ajuste al modelo introduce un sesgo artificial y elimina información sobre las discrepancias entre el modelo de velocidades y la estructura real del medio. El valor de \textit{RMS} debe utilizarse como un indicador de la calidad global de la localización y de la consistencia entre datos y modelo, pero siempre en conjunto con una revisión visual de la calidad de los picks y de la cobertura de estaciones.
+
+\subsubsection{Localización hipocentral}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.80\textwidth]{Figures/RMS_1}
+    \caption{Salida de SEISAN para la localización del evento del 23 de mayo de 2021. La figura presenta los parámetros de la solución hipocentral y las observaciones de fases P y S utilizadas en el ajuste. Para cada estación se muestran la distancia, el acimut, la fase observada, los tiempos de viaje observado y calculado, el residuo temporal y el peso asignado. La solución obtenida presenta un \textit{RMS} de $0{,}48$~s, calculado a partir de $51$ observaciones.}
+    \label{fig:residuos-localizacion-20210523}
+\end{figure}
+
+La Figura~\ref{fig:residuos-localizacion-20210523} muestra la salida numérica generada por SEISAN después de ejecutar la localización del evento del 23 de mayo de 2021. Esta salida resume los parámetros de la solución hipocentral obtenida mediante el modelo de velocidades configurado y presenta, para cada estación y fase seleccionada, la comparación entre los tiempos de arribo observados y los tiempos teóricos calculados.
+
+La cabecera de la salida indica una solución localizada aproximadamente a $33{,}16^\circ$S y $71{,}24^\circ$W, con una profundidad de $48{,}4$~km. Asimismo, se reportan $51$ observaciones utilizadas en el ajuste y un valor de amortiguamiento igual a $0{,}000$. El modelo utilizó observaciones de fases P y S registradas en estaciones de la red \texttt{C1}, mientras que las estaciones \texttt{MT18} fueron ignoradas debido a que no estaban incluidas en la lista de estaciones reconocida por la configuración cargada.
+
+Las columnas mostradas en la Figura~\ref{fig:residuos-localizacion-20210523} contienen la información utilizada en el proceso de ajuste. La columna \texttt{stn} identifica la estación, \texttt{dist} corresponde a la distancia epicentral en kilómetros, \texttt{azm} indica el acimut de la estación respecto del evento, \texttt{ain} corresponde al ángulo de incidencia y \texttt{W} representa el peso asignado a cada observación. Las columnas \texttt{phas} y \texttt{calphs} muestran, respectivamente, la fase observada y la fase calculada, \texttt{t-obs} y \texttt{t-cal} corresponden a los tiempos de viaje observado y teórico; y la columna \texttt{res} presenta el residuo temporal, calculado como la diferencia entre el tiempo observado y el tiempo calculado.
+
+El valor de \textit{RMS} reportado es $0{,}48$~s. Este parámetro corresponde a la raíz cuadrática media de los residuos temporales entre los tiempos de llegada observados y los tiempos teóricos calculados por el modelo de velocidades. En esta solución, el valor se encuentra por debajo del umbral de $0{,}5$~s establecido para la actividad, por lo que la localización cumple el criterio cuantitativo de ajuste definido.
+
+\subsubsection{Cálculo de mecanismos focales}
+
+
+\begin{figure}[htbp]
+    \centering
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/mecanismo_FOCMEC_20210523}
+        \caption{Conjunto de soluciones de mecanismo focal calculadas mediante \texttt{FOCMEC} para el evento del 23 de mayo de 2021. La solución promedio indicada por el programa presenta \textit{strike} $120^\circ$, \textit{dip} $23^\circ$ y \textit{rake} $36^\circ$.}
+        \label{fig:focmec-evento-20210523}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/mecanismo_FPFIT_20210523}
+        \caption{Solución de mecanismo focal calculada mediante \texttt{FPFIT} para el evento del 23 de mayo de 2021. El mecanismo presenta \textit{strike} $75^\circ$, \textit{dip} $47^\circ$ y \textit{rake} $-21^\circ$.}
+        \label{fig:fpfit-evento-20210523}
+    \end{subfigure}
+
+    \caption{Soluciones de mecanismo focal obtenidas para el evento del 23 de mayo de 2021 mediante los programas \texttt{FOCMEC} y \texttt{FPFIT}.}
+    \label{fig:mecanismos-evento-20210523}
+\end{figure}
+
+A partir de las polaridades de las primeras llegadas de ondas P seleccionadas para el evento del 23 de mayo de 2021, se calcularon mecanismos focales mediante los programas \texttt{FOCMEC} y \texttt{FPFIT}. La Figura~\ref{fig:mecanismos-evento-20210523} presenta las soluciones gráficas obtenidas mediante ambos procedimientos, representadas mediante diagramas de hemisferio inferior o ``pelotas de playa''. En estas representaciones, los símbolos rellenos corresponden a polaridades compresionales y los símbolos vacíos a polaridades dilatacionales, mientras que las curvas delimitan los planos nodales asociados a cada solución.
+
+El cálculo realizado con \texttt{FOCMEC} entregó múltiples soluciones admisibles, debido a las combinaciones de \textit{strike}, \textit{dip} y \textit{rake} compatibles con las polaridades disponibles. La Figura~\ref{fig:mecanismos-evento-20210523}a muestra el conjunto de soluciones exploradas por el programa, incluyendo la solución promedio resaltada. Para esta solución promedio, \texttt{FOCMEC} reportó un \textit{strike} de $120^\circ$, un \textit{dip} de $23^\circ$ y un \textit{rake} de $36^\circ$. La visualización también incluye los ejes principales asociados al mecanismo y la distribución de las polaridades empleadas.
+
+Por su parte, \texttt{FPFIT} entregó una solución con \textit{strike} de $75^\circ$, \textit{dip} de $47^\circ$ y \textit{rake} de $-21^\circ$, como se muestra en la Figura~\ref{fig:mecanismos-evento-20210523}b. La salida numérica del programa reportó un valor de ajuste (\textit{fit}) de $0{,}000$ y errores estimados de $14^\circ$ para el \textit{strike}, $25^\circ$ para el \textit{dip} y $18^\circ$ para el \textit{rake}. Estos valores corresponden a las incertidumbres angulares estimadas para los parámetros geométricos de la solución obtenida mediante el ajuste de las polaridades.
+
+\subsection{Evento del 10 de diciembre de 2022}
+
+\newpage
+
+\section{Discusión}
 
 \newpage
 
